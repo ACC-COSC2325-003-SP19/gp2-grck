@@ -43,6 +43,8 @@ How To Control the Device
 
 Device Demonstration
 ********************
+.. image:: Board_setup.png
+	:align: center
 
 Project Code
 ************
