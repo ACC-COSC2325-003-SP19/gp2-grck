@@ -23,7 +23,6 @@ The device we will be demonstrating for our project is the ultrasonic wave senso
    :header: "PIN", "Description"
    :delim: |
 
-    This device has 4 pins:
     VCC| 5V, positive end of the power supply
     TRIG| Trigger Pin
     ECHO| Echo Pin
@@ -32,9 +31,9 @@ The device we will be demonstrating for our project is the ultrasonic wave senso
 The TRIG and ECHO pins will be used to communicate from our microcontroller to the ultrasonic module. 
 
 The HC-SR04 ultrasonic sensor is able to measure distances of objecs by utilizing sonar.
-| 1. The transmitter (trig pin) sends a signal: a high frequency sound.
-| 2. If the is an object in front of it, the signal will be reflected back.
-| 3. The transmitter (echo pin) will receive the signal
+| 1.The transmitter (trig pin) sends a signal: a high frequency sound.
+| 2.If the is an object in front of it, the signal will be reflected back.
+| 3.The transmitter (echo pin) will receive the signal
 
 How To Control the Device
 *************************
