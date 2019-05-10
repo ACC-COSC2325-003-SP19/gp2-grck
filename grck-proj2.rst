@@ -38,6 +38,8 @@ The HC-SR04 ultrasonic sensor is able to measure distances of objecs by utilizin
 
 3. The transmitter (echo pin) will receive the signal
 
+-Ruben Suarez
+
 How To Control the Device
 *************************
 
@@ -45,6 +47,8 @@ Device Demonstration
 ********************
 .. image:: Board_setup.png
 	:align: center
+
+-Ruben Suarez
 
 Project Code
 ************
