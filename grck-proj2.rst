@@ -3,6 +3,7 @@ Device Description
 The main test device in our project is an ultrasonic obstacle sensor, the HC-SR04.
 
 .. image:: ultrasonic.png
+	:align: center
 
 This device has 4 pins:
 VCC – 5V, positive end of the power supply
