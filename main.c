@@ -8,7 +8,6 @@
 #define GREEN_PIN           5
 #define BLUE_PIN            4
 
-
 //--- PIN Controls -------------------------------------------------------
 #define RED_ON              (PORTB |= (1<<RED_PIN))
 #define RED_OFF             (PORTB &= ~(1<<RED_PIN))
@@ -17,11 +16,9 @@
 #define BLUE_ON             (PORTB |= (1<<BLUE_PIN))
 #define BLUE_OFF            (PORTB &= (0X01))
 
-
 //--- Device Setup -------------------------------------------------------
 #define OUTPUT_CONFIG       (DDRB |= (1<<RED_PIN) | (1<<GREEN_PIN) | (1<<BLUE_PIN))
 #define CPU_PRESCALE(n)     (CLKPR = 0x80, CLKPR = (n))
-
 
 //--- LED ----------------------------------------------------------------
 void LEDColor(int distance) {
@@ -37,14 +34,10 @@ void LEDColor(int distance) {
    }
 }
 
-
-
 //--- Main ----------------------------------------------------------
 int main(void) {
    OUTPUT_CONFIG;
    int distance;
-
-
 
    //--- Main Loop ------------------------------------------------------
    while(1){
