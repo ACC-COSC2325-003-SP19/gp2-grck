@@ -50,9 +50,9 @@ How To Control the Device
 
 4. Wait for the echo pin to receive the signal after it has been bounced off an object
 
-This avility can be useful if you know the speed of the ultrasonic waves (speed of sound) and the time it took for the signal to be bounced back. You can use that information to calculate the distance of the object where the ultrasonic wave has been bounced off of.
+This ability can be useful if you know the speed of the ultrasonic waves (speed of sound) and the time it took for the signal to be bounced back. You can use that information to calculate the distance of the object where the ultrasonic wave has been bounced off of.
 
-For our project, a counter was created to keep track of the time it took for the signal to be bounced back. We did this by simply calling a delay function that approximated the time it would take sound to travel a centimeter. The counter was increased by one each time that the delay function was called before receiving a signal back.
+For our project, a counter was created to keep track of the time it took for the signal to be bounced back. We did this by simply calling a delay function that approximated the time it would have taken sound to travel a centimeter. The counter was increased by one each time that the delay function was called before receiving a signal back.
 
 We were then able to come up with a program that would "alert" us if any object was closer then about 10 centimeters. We did this by utilizing and RGB LED that was programmed to change colors as the counter reached certain thresholds. 
 
