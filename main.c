@@ -2,18 +2,10 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-
-
-/************************************************************************/
-/*                           Defining Constants                         */
-/************************************************************************/
-
-
-
 //--- PIN Assignments ----------------------------------------------------
-#define RED_PIN             1
-#define GREEN_PIN           2
-#define BLUE_PIN            3
+#define RED_PIN             0
+#define GREEN_PIN           5
+#define BLUE_PIN            4
 
 
 //--- PIN Controls -------------------------------------------------------
@@ -21,55 +13,45 @@
 #define RED_OFF             (PORTB &= ~(1<<RED_PIN))
 #define GREEN_ON            (PORTB |= (1<<GREEN_PIN))
 #define GREEN_OFF           (PORTB &= ~(1<<GREEN_PIN))
-#define YELLOW_ON           (PORTB |= (1<<RED_PIN) | (1<<GREEN_PIN))
-#define YELLOW_OFF          (PORTB &= (0x01))
+#define BLUE_ON             (PORTB |= (1<<BLUE_PIN))
+#define BLUE_OFF            (PORTB &= (0X01))
 
 
 //--- Device Setup -------------------------------------------------------
-#define OUTPUT_CONFIG       (DDRB |= (1<<RED_PIN) | (1<<GREEN_PIN))
+#define OUTPUT_CONFIG       (DDRB |= (1<<RED_PIN) | (1<<GREEN_PIN) | (1<<BLUE_PIN))
 #define CPU_PRESCALE(n)     (CLKPR = 0x80, CLKPR = (n))
 
 
 //--- LED ----------------------------------------------------------------
 void LEDColor(int distance) {
-   YELLOW_OFF;
 
-
-
-   if (distance >= 4) {
-       RED_ON;
+   if (distance > 400) {
+	BLUE_ON;
    }
-   else if (distance >= 2) {
-       YELLOW_ON;
+   if (distance < 10) {
+      	RED_ON;
    }
-	else {
-       GREEN_ON;
+   else {
+      	GREEN_ON;
    }
 }
 
 
 
-/************************************************************************/
-/*                           MAIN function                              */
-/************************************************************************/
-
-
-
+//--- Main ----------------------------------------------------------
 int main(void) {
-   //--- Setup ----------------------------------------------------------
-   int distance;
    OUTPUT_CONFIG;
-  
-   // Set Timer/Counter to proper speed for buzzer
-   TIMSK0 = 0;
-   TCCR0B = 2;
+   int distance;
 
 
 
    //--- Main Loop ------------------------------------------------------
    while(1){
-       distance = sonar();
-       LEDColor(distance);
+	BLUE_OFF;
+   	GREEN_OFF;
+   	RED_OFF;
+      	distance = sonar();
+    	LEDColor(distance);
    }
    return 0;
 }

@@ -1,12 +1,18 @@
 #include "config.inc"
 
 	.section    .text
-	.global     sonar
+        .global     sonar
 	.org        0x0000
 
 sonar:
-        sbi             SENSOR_DIR, TRIG_PIN         ; sets pin 2's direction to output => Trig Pin
-        cbi             SENSOR_DIR, ECHO_PIN         ; sets pin 4's direction to input  <= Echo Pin
+
+	; initialize the CPU clock to run at full speed
+	ldi         r24, 0x80
+        sts         CLKPR, r24              ; allow access to clock setup
+        sts         CLKPR, r1               ; run at full speed
+
+        sbi             SENSOR_DIR, TRIG_PIN         ; sets pin 3's direction to output => Trig Pin
+        cbi             SENSOR_DIR, ECHO_PIN         ; sets pin 2's direction to input  <= Echo Pin
         cbi             SENSOR_PORT, TRIG_PIN        ; sets the output to LOW
 send:						
         sbi             SENSOR_PORT, TRIG_PIN        ; set Trig Pin to HIGH to send a burst of 8 pings
@@ -15,41 +21,28 @@ send:
 receive:
         clr             r21                     ; clear counter value
 waiting:
-        call            hundredCMDelay          ; wait long enough for the sound to travel 100 cm (each way)
-        inc             r21                     ; increment counter
+        call            Delay        		; giving it time to travel 1cm
+        inc             r21                     ; increment counter for each cm
         sbic            SENSOR_PIND, ECHO_PIN	; break out of loop if response received
-        rjmp            waiting                 ; otherwise keep waiting for the response
+        rjmp            waiting                 ; otherwise keep waiting for the echo
         clr		r25			; zero out high bits of return register
         mov		r24, r21                ; set lower bits to the value of counter
-        call            tenMicroDelay
+        call            Delay
         ret					; return to calling function
+Delay:
+        ldi             r18, 2                ; set loop to 20
+	ldi		r19, 41
+1:      dec		r19			
+	brne		1b
+	dec		r18
+	brne		1b			
+	ret					; return after ~1 cm of travel
 
-;-----------------------------------------------;
-;               DELAY FUNCTIONS                 ;
-;-----------------------------------------------;
+
 tenMicroDelay:
-        ldi             r18, 2                  ; set outer loop to 2
-1:
-        ldi             r19, 80                 ; set inner loop to 80 (160 cycles total)
-2:
-        dec             r19                     ; decrement inner loop
-        brne            2b                      ; keep looping until (r19 == 0)
-        dec             r18                     ; decrement outer loop
-        brne            1b                      ; keep looping until (r18 == 0)
-        ret                                     ; return after 10 microseconds
-
-hundredCMDelay:
-        ldi             r18, 100                ; set outer loop to 100 (centimeters)
-5:
-        ldi             r19, 58                 ; set middle loop to 58 (microseconds per centimeter)
-6:      
-        ldi             r20, 16                 ; set inner loop to 16 (cycles per microsecond)
-7:
-        dec             r20                     ; decrement inner loop
-        brne            7b                      ; keep looping until r20 == 0
-        dec             r19                     ; decrement middle loop
-        brne            6b                      ; keep looping until r19 == 0
-        dec             r18                     ; decrement outer loop
-        brne            5b                      ; keep looping until r18 == 0
-        ret                                     ; return after a delay equal to 100 centimeters
+        ldi             r18, 50                 ; set loop to 50
+1:      dec		r18			
+	brne		1b
+	ret					; return after 10 microseconds
+        
 

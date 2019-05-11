@@ -1,7 +1,4 @@
 #include <avr/io.h>
-
-#define RED_PIN		1	
-#define BLUE_PIN	3
 #define TRIG_PIN	3
 #define ECHO_PIN	2
 #define SENSOR_DIR      _(DDRD)
