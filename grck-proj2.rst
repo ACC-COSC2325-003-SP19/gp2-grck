@@ -42,6 +42,21 @@ The HC-SR04 ultrasonic sensor is able to measure distances of objecs by utilizin
 
 How To Control the Device
 *************************
+1. Assign an arduino pin to both the echo and trig pins
+
+2. Assign the trig pin as an output and the echo pin as an input
+
+3. Will need to send a "HIGH" pulse through the trig pin for at least 10 microseconds
+
+4. Wait for the echo pin to receive the signal after it has been bounced off an object
+
+This avility can be useful if you know the speed of the ultrasonic waves (speed of sound) and the time it took for the signal to be bounced back. You can use that information to calculate the distance of the object where the ultrasonic wave has been bounced off of.
+
+For our project, a counter was created to keep track of the time it took for the signal to be bounced back. We did this by simply calling a delay function that approximated the time it would take sound to travel a centimeter. The counter was increased by one each time that the delay function was called before receiving a signal back.
+
+We were then able to come up with a program that would "alert" us if any object was closer then about 10 centimeters. We did this by utilizing and RGB LED that was programmed to change colors as the counter reached certain thresholds. 
+
+-Ruben Suarez
 
 Device Demonstration
 ********************
@@ -175,4 +190,4 @@ config.inc
     // include this line to avoid SFR_REG issues
     #define _(s)    _SFR_IO_ADDR(s)
 
-- Ruben Suarez
+-Ruben Suarez
