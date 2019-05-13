@@ -32,13 +32,22 @@ The TRIG and ECHO pins will be used to communicate from our microcontroller to t
 
 The HC-SR04 ultrasonic sensor is able to measure distances of objecs by utilizing sonar.
 
-1. The transmitter (trig pin) sends a signal: a high frequency sound.
+1. The transmitter (trig pin) sends a trigger signal: an 8 cycle ultrasonic burst at 40kHz.
 
-2. If the is an object in front of it, the signal will be reflected back.
+2. The trigger signal will be reflected off of any object within the devices range of 400 cm.
 
-3. The transmitter (echo pin) will receive the signal
+3. The transmitter (echo pin) will receive the signal.
+
+An object's distance can be calculated using the time from the emission of the trigger signal to the return of the echo: (high level time * 340m/s(velocity)) / 2
+Recommended interval time is 60ms.
+
+.. image:: index.jpeg
+	:align: center
+
+For best results, objects should be larger than .5m. Smaller objects may be registered from close distances, but not guarenteed to be registered within reported range. The device also recommends as smooth of a plane as possible. HC-SR04 is most commonly used for robotics obstacle detection, mapping surroundings and depth measurement (ultrasonic signals penetrate water). It may also be implemented in interactive art and automation. 
 
 -Ruben Suarez
+-Corbin Walters
 
 How To Control the Device
 *************************
