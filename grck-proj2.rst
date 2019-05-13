@@ -226,6 +226,9 @@ The main technical parameters
 
 7: High precision up to 0.2cm
 
+
+- Gu
+
 Wiring method
 *****************
 
@@ -240,11 +243,9 @@ Wiring method
 
 Program implementation
 *************************
-main.c
+main.cpp
 ======
 ::
-
-    // Copyright 2019 Ruben Suarez
 
     #include <avr/io.h>
     #include <util/delay.h>
@@ -274,9 +275,9 @@ main.c
       cm = (temp * 17 )/1000;
 
       Serial.print("Echo =");
-      Serial.print(temp);//串口输出等待时间的原始数据
+      Serial.print(temp);
       Serial.print(" | | Distance = ");
-      Serial.print(cm);//串口输出距离换算成cm的结果
+      Serial.print(cm);
       Serial.println("cm");
       delay(100);
     }
@@ -287,3 +288,6 @@ Instance effect
 
 
 Press the serial port monitor, you can see that the measured distance is 9.8cm-10.1cm, the error is about 0.2cm.
+
+
+- Gu
