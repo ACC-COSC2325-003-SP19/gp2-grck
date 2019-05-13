@@ -191,3 +191,94 @@ config.inc
     #define _(s)    _SFR_IO_ADDR(s)
 
 -Ruben Suarez
+
+
+
+HC-SR04 
+*********
+A sensor that uses ultrasonic to measure distance, which is mostly used in robots to avoid obstacles and distance measurement.
+.. image:: Board_setup.png
+	:align: center
+
+Its module, triggering ranging with Trig
+
+Eight 40khz square waves will be sent to automatically detect if there is a signal return
+
+There is a signal return, output high level through echo, the high level lasts twice the distance
+
+Measuring distance = (high time * sound speed) / 2
+
+The main technical parameters
+*******************************
+
+1: Use voltage: DC---5V
+
+2: quiescent current: less than 2mA
+
+3: Level output: 5V high
+
+4: Level output: bottom 0V
+
+5: Induction angle: no more than 15 degrees
+
+6: Detection distance: 2cm-450cm
+
+7: High precision up to 0.2cm
+
+Wiring method
+*****************
+
+.. image:: Board_setup.png
+	:align: center
+
+
+
+Program implementation
+*************************
+main.c
+======
+::
+
+    // Copyright 2019 Ruben Suarez
+
+    #include <avr/io.h>
+    #include <util/delay.h>
+
+    #define Trig 2 
+    #define Echo 3  
+ 
+    float cm; //
+    float temp; // 
+ 
+    void setup() {
+      Serial.begin(9600);
+      pinMode(Trig, OUTPUT);
+      pinMode(Echo, INPUT);
+    }
+ 
+    void loop() {
+      
+      digitalWrite(Trig, LOW); 
+      delayMicroseconds(2);    
+      digitalWrite(Trig,HIGH); 
+      delayMicroseconds(10);    
+      digitalWrite(Trig, LOW); 
+
+      temp = float(pulseIn(Echo, HIGH)); 
+
+      cm = (temp * 17 )/1000;
+
+      Serial.print("Echo =");
+      Serial.print(temp);//串口输出等待时间的原始数据
+      Serial.print(" | | Distance = ");
+      Serial.print(cm);//串口输出距离换算成cm的结果
+      Serial.println("cm");
+      delay(100);
+    }
+  
+
+Instance effect
+******************
+
+.. image:: Board_setup.png
+	:align: center
