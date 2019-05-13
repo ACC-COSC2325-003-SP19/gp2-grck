@@ -197,7 +197,8 @@ config.inc
 HC-SR04 
 *********
 A sensor that uses ultrasonic to measure distance, which is mostly used in robots to avoid obstacles and distance measurement.
-.. image:: Board_setup.png
+
+.. image:: 20160514191012711.png
 	:align: center
 
 Its module, triggering ranging with Trig
@@ -228,8 +229,12 @@ The main technical parameters
 Wiring method
 *****************
 
-.. image:: Board_setup.png
-	:align: center
+
+.. image:: 20160514202140483.png
+
+
+.. image:: 20160514203523923.png
+
 
 
 
@@ -280,5 +285,4 @@ main.c
 Instance effect
 ******************
 
-.. image:: Board_setup.png
-	:align: center
+
