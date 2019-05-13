@@ -286,3 +286,4 @@ Instance effect
 ******************
 
 
+Press the serial port monitor, you can see that the measured distance is 9.8cm-10.1cm, the error is about 0.2cm.
