@@ -203,6 +203,14 @@ config.inc
 
 
 
+
+
+
+
+
+
+
+
 HC-SR04 
 *********
 A sensor that uses ultrasonic to measure distance, which is mostly used in robots to avoid obstacles and distance measurement.
