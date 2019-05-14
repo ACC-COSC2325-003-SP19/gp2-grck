@@ -17,9 +17,6 @@ trig:
         sbi             SENSOR_PORT, TRIG_PIN        ; set Trig Pin to HIGH to send a ultrasonic wave burst
         call            tenMicroDelay                ; HIGH signal must continue for 10 microseconds
         cbi             SENSOR_PORT, TRIG_PIN        ; set the output to LOW after waves are sent
-buzzinit:
-        sbi             BUZZ_DIR, BUZZ_PIN      ; buzzer to pin 9
-        cbi             BUZZ_PORT, BUZZ_PIN     ; start with buzzer off
 echo:
         clr             r21                     ; clear counter value
 echowait:
@@ -27,8 +24,6 @@ echowait:
         inc             r21                     ; increment counter for each cm
         sbic            SENSOR_PIND, ECHO_PIN	; break out of loop if echo received
         rjmp            echowait                ; otherwise keep waiting for the echo
-        cpi             r21, 5                  ;
-        brlt            buzzer                  ;
         clr		r25			; zero out high bits of return register
         mov		r24, r21                ; set lower bits to the value of counter
         call            Delay
@@ -47,27 +42,5 @@ tenMicroDelay:
         ldi             r18, 50                 ; set loop to 50
 1:      dec		r18			
 	brne		1b
-        ret					; return after 10 microseconds
-buzzer:
-        call toggle
-        call buzzDelay
-        call toggle
-        ret
-
-toggle:
-      in              r24, BUZZ_PORT          ; get current bit
-      ldi             r25, (1 << BUZZ_PIN)    ; BUZZ PIN 9
-      eor             r24, r25                ; flip the bit
-      out             BUZZ_PORT, r24      
-      ret
-
-buzzDelay:
-        ldi            r16, 150
-2:      ldi            r17, 150
-1:      dec            r16
-        brne           1b
-        dec            r17
-        brne           2b
-        ret
-
+	ret					; return after 10 microseconds
 

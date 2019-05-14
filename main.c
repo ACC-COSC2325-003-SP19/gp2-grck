@@ -7,7 +7,6 @@
 #define RED_PIN             0
 #define GREEN_PIN           5
 #define BLUE_PIN            4
-#define BUZZ_PIN            1
 
 //--- PIN Controls -------------------------------------------------------
 #define RED_ON              (PORTB |= (1<<RED_PIN))
@@ -16,11 +15,9 @@
 #define GREEN_OFF           (PORTB &= ~(1<<GREEN_PIN))
 #define BLUE_ON             (PORTB |= (1<<BLUE_PIN))
 #define BLUE_OFF            (PORTB &= (0X01))
-#define BUZZ_ON		    (PORTB |= (1<<BUZZ_PIN))
-#define BUZZ_OFF	    (PORTB &= (1<<BUZZ_PIN))
 
 //--- Device Setup -------------------------------------------------------
-#define OUTPUT_CONFIG       (DDRB |= (1<<RED_PIN) | (1<<GREEN_PIN) | (1<<BLUE_PIN) | (1<<BUZZ_PIN))
+#define OUTPUT_CONFIG       (DDRB |= (1<<RED_PIN) | (1<<GREEN_PIN) | (1<<BLUE_PIN))
 #define CPU_PRESCALE(n)     (CLKPR = 0x80, CLKPR = (n))
 
 //--- LED ----------------------------------------------------------------
@@ -31,7 +28,6 @@ void LEDColor(int distance) {
    }
    if (distance < 10) {
       	RED_ON;
-	BUZZ_ON;
    }
    else {
       	GREEN_ON;
@@ -48,12 +44,9 @@ int main(void) {
 	BLUE_OFF;
    	GREEN_OFF;
    	RED_OFF;
-	BUZZ_OFF;
       	distance = sonar();
     	LEDColor(distance);
    }
    return 0;
 }
-
-
 
