@@ -2,7 +2,7 @@ Device Description
 ******************
 The device we will be demonstrating for our project is the ultrasonic wave sensor, the HC-SR04.
 
-.. image:: ultrasonic.png
+.. image:: img/ultrasonic.png
 	:align: center
 
 .. csv-table:: Device Features
@@ -41,7 +41,7 @@ The HC-SR04 ultrasonic sensor is able to measure distances of objecs by utilizin
 An object's distance can be calculated using the time from the emission of the trigger signal to the return of the echo: (high level time * 340m/s(velocity)) / 2
 Recommended interval time is 60ms.
 
-.. image:: index.jpeg
+.. image:: img/index.jpeg
 	:align: center
 
 For best results, objects should be larger than .5m. Smaller objects may be registered from close distances, but not guarenteed to be registered within reported range. The device also recommends as smooth of a plane as possible. HC-SR04 is most commonly used for robotics obstacle detection, mapping surroundings and depth measurement (ultrasonic signals penetrate water). It may also be implemented in interactive art and automation. 
@@ -69,7 +69,7 @@ We were then able to come up with a program that would "alert" us if any object 
 
 Device Demonstration
 ********************
-.. image:: Board_setup.png
+.. image:: img/Board_setup.png
 	:align: center
 
 -Ruben Suarez
@@ -215,7 +215,7 @@ HC-SR04
 *********
 A sensor that uses ultrasonic to measure distance, which is mostly used in robots to avoid obstacles and distance measurement.
 
-.. image:: 20160514191012711.png
+.. image:: img/20160514191012711.png
 	:align: center
 
 Its module, triggering ranging with Trig
@@ -250,10 +250,10 @@ Wiring method
 *****************
 
 
-.. image:: 20160514202140483.png
+.. image:: img/20160514202140483.png
 
 
-.. image:: 20160514203523923.png
+.. image:: img/20160514203523923.png
 
 
 
