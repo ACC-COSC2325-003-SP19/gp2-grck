@@ -45,9 +45,6 @@ Recommended interval time is 60ms.
 .. image:: img/index.jpeg
 	:align: left
 
-.. image:: img/Sensor-Time.png
-        :align: right
-
 For best results, objects should be larger than .5m. Smaller objects may be registered from close distances, but not guaranteed to be registered within reported range. The device also recommends as smooth of a plane as possible. HC-SR04 is most commonly used for robotics obstacle detection, mapping surroundings and depth measurement (ultrasonic signals penetrate water). It may also be implemented to take measurements of depths, speed, and direction, for wireless charging, burglar alarms, humidifiers, interactive art and automation. 
 
 -Ruben Suarez
