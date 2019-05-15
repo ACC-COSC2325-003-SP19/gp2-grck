@@ -44,6 +44,7 @@ Recommended interval time is 60ms.
 
 .. image:: img/index.jpeg
 	:align: left
+
 .. image:: img/Sensor-Time.png
         :align: right
 
