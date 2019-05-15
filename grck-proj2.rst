@@ -12,10 +12,11 @@ The device we will be demonstrating for our project is the ultrasonic wave senso
     Power Supply| +5V DC
     Quiescent Current| <2mA
     Working Current| 15mA
+    Working Frequency| 40Hz
     Effectual Angle| <15°
-    Ranging Distance| 2cm – 400 cm/1″ – 13ft
+    Ranging Distance| 2cm – 4m /1" – 13'
     Resolution| 0.3 cm
-    Measuring Angle| 30 degree
+    Measuring Angle| 30° cone
     Trigger Input Pulse width| 10uS
     Dimension| 45mm x 20mm x 15mm
 
@@ -42,12 +43,15 @@ An object's distance can be calculated using the time from the emission of the t
 Recommended interval time is 60ms.
 
 .. image:: img/index.jpeg
-	:align: center
+	:align: left
+.. image:: img/Sensor-Time.png
+        :align: right
 
-For best results, objects should be larger than .5m. Smaller objects may be registered from close distances, but not guarenteed to be registered within reported range. The device also recommends as smooth of a plane as possible. HC-SR04 is most commonly used for robotics obstacle detection, mapping surroundings and depth measurement (ultrasonic signals penetrate water). It may also be implemented in interactive art and automation. 
+For best results, objects should be larger than .5m. Smaller objects may be registered from close distances, but not guaranteed to be registered within reported range. The device also recommends as smooth of a plane as possible. HC-SR04 is most commonly used for robotics obstacle detection, mapping surroundings and depth measurement (ultrasonic signals penetrate water). It may also be implemented to take measurements of depths, speed, and direction, for wireless charging, burglar alarms, humidifiers, interactive art and automation. 
 
 -Ruben Suarez
 -Corbin Walters
+-Kameron Moncus
 
 How To Control the Device
 *************************
@@ -59,9 +63,9 @@ How To Control the Device
 
 4. Wait for the echo pin to receive the signal after it has been bounced off an object
 
-This ability can be useful if you know the speed of the ultrasonic waves (speed of sound) and the time it took for the signal to be bounced back. You can use that information to calculate the distance of the object where the ultrasonic wave has been bounced off of.
+This ability can be useful if you know the speed of the ultrasonic waves (speed of sound) and the time it took for the signal to be bounced back. You can use that information to calculate the distance of the object from where the ultrasonic wave has been bounced.
 
-For our project, a counter was created to keep track of the time it took for the signal to be bounced back. We did this by simply calling a delay function that approximated the time it would have taken sound to travel a centimeter. The counter was increased by one each time that the delay function was called before receiving a signal back.
+For our project, a counter was created to keep track of the time it took for the signal to be bounced back. We did this by simply calling a delay function that approximated the time it would have taken sound to travel a centimeter. The counter(register 21) was increased by one each time that the delay function was called before receiving a signal back.
 
 We were then able to come up with a program that would "alert" us if any object was closer then about 10 centimeters. We did this by utilizing and RGB LED that was programmed to change colors as the counter reached certain thresholds. 
 
@@ -69,10 +73,13 @@ We were then able to come up with a program that would "alert" us if any object 
 
 Device Demonstration
 ********************
+.. image:: img/IntroHC-SR04.jpg
+        :align: center
 .. image:: img/Board_setup.png
 	:align: center
 
 -Ruben Suarez
+-Kameron Moncus
 
 Project Code
 ************
@@ -135,6 +142,8 @@ main.c
        return 0;
     }
 
+
+
 Sonar.S
 =======
 ::
@@ -194,21 +203,54 @@ config.inc
     #define ECHO_PIN	2
     #define SENSOR_DIR      _(DDRD)
     #define SENSOR_PORT     _(PORTD)
-    #define SENSOR_PIND	_(PIND)
+    #define SENSOR_PIND     _(PIND)
 
     // include this line to avoid SFR_REG issues
     #define _(s)    _SFR_IO_ADDR(s)
 
 -Ruben Suarez
 
+Buzzer Implimentation
+=====================
+Along with the LED changing colors depending on an objects distance from the sonic sensor, we were also able to have a buzzer sound when an object comes within "danger range". This could be useful for back-up or low velocity impact warning sensors on a vehicle. 
+::
+    // Define pins for ultrasonic and buzzer
+    int const TRIG_PIN = 3;
+    int const ECHO_PIN = 2;
+    int const BUZZ_PIN = 10;
+    void setup()
+    {
+    pinMode(TRIG_PIN, OUTPUT); // trig pin with pulse output
+    pinMode(ECHO_PIN, INPUT); // echo pin - input for pw
+    pinMode(BUZZ_PIN, OUTPUT); // buzz pin is output -BZZZ
+    }
+    void loop()
+    {
+    // pw is input pulse width, d is the distance to the obstacle in cm
+    int pw, d;
+    // Output pulse with 1ms width on trigPin
+    digitalWrite(TRIG_PIN, HIGH);
+    delay(1);
+    digitalWrite(TRIG_PIN, LOW);
+    // Measure the pulse input in echo pin
+    pw = pulseIn(ECHO_PIN, HIGH);
+    // Distance is half the duration divided by 29.1
+    d = (pw/2)/2.91;
+    // (0 or less is out of range)
+    if (d <= 60 && d >= 0) {
+    // Buzz
+    digitalWrite(buzz_Pin, HIGH);
+    } else {
+    // Don't buzz
+    digitalWrite(buzz_Pin, LOW);
+    }
+    // Waiting 100 ms won't hurt any one
+    delay(100);
+    }
 
 
-
-
-
-
-
-
+This code will cause the buzzer to alarm if there is anything within it's viewing range up to ~2ft.
+-Kameron Moncus
 
 
 HC-SR04 
@@ -308,3 +350,8 @@ Press the serial port monitor, you can see that the measured distance is 9.8cm-1
 
 
 - Gu
+
+
+
+.. Sources    https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf
+..            https://howtomechatronics.com/tutorials/arduino/ultrasonic-sensor-hc-sr04/
